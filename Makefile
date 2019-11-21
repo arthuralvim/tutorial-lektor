@@ -1,6 +1,6 @@
 # Makefile lektor-tutorial
 
-.PHONY: clean clean-build clean-others clean-pyc clean-test check.lektor_username check.lektor_password build deploy
+.PHONY: clean clean-build clean-others clean-pyc clean-test check.lektor_username check.lektor_password build deploy lektor_plugins
 
 clean: clean-build clean-others clean-pyc clean-test
 
@@ -30,6 +30,9 @@ check.lektor_username:
 
 check.lektor_password:
 	@if test "$(LEKTOR_DEPLOY_PASSWORD)" = "" ; then echo "LEKTOR_DEPLOY_PASSWORD is undefined. The default is tests."; fi
+
+lektor_plugins:
+	@cd mulektor && lektor plugins reinstall
 
 build:
 	@echo "Build started on `date`"

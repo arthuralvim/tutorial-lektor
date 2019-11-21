@@ -7,13 +7,15 @@ language: python
 python:
   - 3.7
 
-node_js: 11
-
 before_install:
-  - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH, TRAVIS_TAG=$TRAVIS_TAG"
+  - curl -s -o $HOME/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.32.1/nvm.sh
+  - source $HOME/.nvm/nvm.sh
+  - nvm install stable
+  - node --version
   - pip install pip==18.0
   - pip install pipenv==2018.11.26
   - pipenv install --system --dev
+  - make lektor_plugins
   - npm install --global npm@latest
 
 script:
@@ -32,7 +34,11 @@ after_failure:
 after_success:
   - echo "== BUILD OK ==""
 
-cache: pip
+cache:
+  directories:
+    - $HOME/.cache/pip
+    - $HOME/.cache/lektor/builds
 
 notifications:
   email: false
+

@@ -2,4 +2,4 @@
 name = mulektor
 
 [servers.ghpages]
-target = ghpages+https://arthuralvim/lektor-tutorial
+target = ghpages+https://arthuralvim/lektor-tutorial?cname=2020.scipyla.org
