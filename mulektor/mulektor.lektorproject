@@ -1,0 +1,5 @@
+[project]
+name = mulektor
+
+[servers.ghpages]
+target = ghpages+https://arthuralvim/lektor-tutorial

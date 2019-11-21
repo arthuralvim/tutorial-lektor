@@ -1,0 +1,38 @@
+# travis-ci lektor-tutorial
+
+sudo: false
+
+language: python
+
+python:
+  - 3.7
+
+node_js: 11
+
+before_install:
+  - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH, TRAVIS_TAG=$TRAVIS_TAG"
+  - pip install pip==18.0
+  - pip install pipenv==2018.11.26
+  - pipenv install --system --dev
+  - npm install --global npm@latest
+
+script:
+  - make build
+
+deploy:
+  provider: script
+  script: make deploy
+  on:
+    branch: master
+
+after_failure:
+  - if [ -f log/tests.log ]; then cat log/tests.log && sleep 5; fi
+  - echo "== BUILD FAILED ==""
+
+after_success:
+  - echo "== BUILD OK ==""
+
+cache: pip
+
+notifications:
+  email: false
